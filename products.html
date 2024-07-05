@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Lines</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+            color: #364146;
+            background-color: #f7f8f9;
+        }
+        .section-title {
+            text-align: center;
+            padding-bottom: 30px;
+        }
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            position: relative;
+            color: #3A6DB2;
+        }
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #3F3F9A;
+            bottom: 0;
+            left: calc(50% - 40px);
+        }
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .product-card .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card .card-title {
+            color: #3F3F9A;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .product-card .list-group {
+            flex-grow: 1;
+            transition: max-height 0.3s ease-out;
+        }
+        .product-card .list-group-item {
+            border: none;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        .product-card .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+        .product-card .list-group-item i {
+            color: #3F3F9A;
+            margin-right: 0.5rem;
+        }
+        .product-card .list-group-item a {
+            color: #3A6DB2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .product-card .list-group-item a:hover {
+            color: #DA434C;
+        }
+        .show-more {
+            display: none;
+            color: #DA434C;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        .show-more:hover {
+            color: #3A6DB2;
+        }
+        .show-more i {
+            font-size: 1.2rem;
+        }
+        .show-more.active i {
+            transform: rotate(180deg);
+        }
+        .list-group.collapsed {
+            max-height: 150px;
+            overflow: hidden;
+        }
+        #category-filter {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #3A6DB2;
+            border-radius: 5px;
+            color: #3A6DB2;
+            background-color: #fff;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        #category-filter:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(58, 109, 178, 0.2);
+        }
+        @media (max-width: 768px) {
+            #category-filter {
+                max-width: 100%;
+            }
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3A6DB2 !important;
+        }
+        .nav-link {
+            color: #364146 !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #DA434C !important;
+        }
+        /* image */
+
+        .product-lines-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.paint-icon {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 10px; /* Adjust spacing */
+}
+
+.product-lines-header h2 {
+    font-size: 32px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: #3A6DB2; /* Dark blue */
+}
+
+.product-lines-header h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #3F3F9A; /* Purple */
+    bottom: 0;
+    left: calc(50% - 40px);
+}
+
+    </style>
+</head>
+<body>
+    <header id="header" class="fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">WINTECH PAINTS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " href="index.html">About us</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="index.html#about">About Us</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="products.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="markets.html">Markets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div class="header-social-links d-none d-lg-flex align-items-center">
+                        <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    <div class="container py-5">
+        <div class="section-title">
+            <img src="assets/img/spash2.png" alt="Paint" class="paint-icon">
+            <h2>Product Lines</h2>
+            <p>Explore and know our products</p>
+        </div>
+
+        <div class="mb-4 d-flex justify-content-center">
+            <select id="category-filter" class="form-select">
+                <option value="all">All Categories</option>
+                <option value="primers">Primers</option>
+                <option value="enamels">Enamels and Finishes</option>
+                <option value="specialty">Specialty Paints</option>
+                <option value="epoxy">Epoxy Coatings</option>
+                <option value="hightemp">High Temperature Paints</option>
+                <option value="special">Special Coatings</option>
+            </select>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="product-container">
+            <div class="col" data-category="primers">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Primers</h5>
+                        <ul class="list-group list-group-flush" id="primers-list">
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">REDOXIDE METAL PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">ZINC CHROMATE REDOXIDE METAL PRIMER AS PER IS : 2074 (504)</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">ZINC CHROMATE YELLOW PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">ZINC PHOSPHATE GREY PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">EPOXY ZINC CHROMATE PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">EPOXY ZINC CHROMATE YELLOW PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">EPOXY ZINC RICH PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">POLYURETHANE PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="./products/product.html">ETCH PRIMER</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('primers-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="enamels">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Enamels and Finishes</h5>
+                        <ul class="list-group list-group-flush" id="enamels-list">
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="./products/product.html">SYNTHETIC ENAMEL</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="./products/product.html">HIGH SPEED ENAMEL</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="./products/product.html">SYNTHETIC STOVING ENAMELS</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="./products/product.html">CHEMICAL RESISTANT EPOXY FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="./products/product.html">PHENOLIC - EPOXY FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="./products/product.html">UNICOT EPOXY FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="./products/product.html">POLYURETHANE FINISH</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('enamels-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="specialty">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Specialty Paints</h5>
+                        <ul class="list-group list-group-flush" id="specialty-list">
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="./products/product.html">FLUORESCENT PAINT</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="./products/product.html">ALUMINIUM PAINT</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="./products/product.html">HEAT & OIL RESISTANT FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="./products/product.html">A.C.BLACK</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="./products/product.html">CHLORUB PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="./products/product.html">CHLORUB FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="./products/product.html">ACRYLIC Road marking paint</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('specialty-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="epoxy">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Epoxy Coatings</h5>
+                        <ul class="list-group list-group-flush" id="epoxy-list">
+                            <li class="list-group-item"><i class="fas fa-layer-group"></i><a href="./products/product.html">EPOXY COAL TAR</a></li>
+                            <li class="list-group-item"><i class="fas fa-layer-group"></i><a href="./products/product.html">EPOXY HIGH BUILD MIO</a></li>
+                            <li class="list-group-item"><i class="fas fa-layer-group"></i><a href="./products/product.html">EPOXY MASTIC</a></li>
+                            <li class="list-group-item"><i class="fas fa-layer-group"></i><a href="./products/product.html">SOLVENTLESS EPOXY COATING</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('epoxy-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="hightemp">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">High Temperature Paints</h5>
+                        <ul class="list-group list-group-flush" id="hightemp-list">
+                            <li class="list-group-item"><i class="fas fa-thermometer-full"></i><a href="./products/product.html">SPECIFICATION FOR H.R.ALUMINIUM</a></li>
+                            <li class="list-group-item"><i class="fas fa-thermometer-full"></i><a href="./products/product.html">SPECIFICATION FOR H.R.ALUMINIUM 600°C</a></li>
+                            <li class="list-group-item"><i class="fas fa-thermometer-full"></i><a href="./products/product.html">SPECIFICATION FOR H.R.BLACK</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('hightemp-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="special">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special Coatings</h5>
+                        <ul class="list-group list-group-flush" id="special-list">
+                            <li class="list-group-item"><i class="fas fa-flask"></i><a href="./products/product.html">INORGANIC ETHYL ZINC SILICATE</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('special-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function toggleList(listId) {
+        const list = document.getElementById(listId);
+        const showMoreBtn = list.nextElementSibling;
+        if (list.classList.contains('collapsed')) {
+            list.style.maxHeight = list.scrollHeight + "px";
+            list.classList.remove('collapsed');
+            showMoreBtn.classList.add('active');
+        } else {
+            list.style.maxHeight = "150px";
+            list.classList.add('collapsed');
+            showMoreBtn.classList.remove('active');
+        }
+    }
+
+    function filterCategories() {
+        const selectedCategory = document.getElementById('category-filter').value;
+        const productCards = document.querySelectorAll('.col[data-category]');
+
+        productCards.forEach(card => {
+            if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    function initializeLists() {
+        const lists = document.querySelectorAll('.list-group');
+        lists.forEach((list, index) => {
+            const items = list.querySelectorAll('.list-group-item');
+            const showMoreBtn = list.nextElementSibling;
+            if (items.length > 3) {
+                showMoreBtn.style.display = 'block';
+                list.classList.add('collapsed');
+                list.style.maxHeight = "150px";
+            } else {
+                showMoreBtn.style.display = 'none';
+                list.classList.remove('collapsed');
+            }
+            list.closest('.product-card').style.animationDelay = `${index * 0.1}s`;
+        });
+    }
+
+    window.onload = function() {
+        initializeLists();
+        document.getElementById('category-filter').addEventListener('change', filterCategories);
+    };
+</script>
+</body>
+</html>

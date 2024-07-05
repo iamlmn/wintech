@@ -185,3 +185,11 @@
   });
 
 })(jQuery);
+
+if (items.length > 3) {
+  showMoreBtn.style.display = 'block';
+  list.classList.add('collapsed');
+} else {
+  showMoreBtn.style.display = 'none';
+  list.classList.remove('collapsed');
+}

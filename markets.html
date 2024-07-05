@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winlac Markets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+            color: #364146;
+            background-color: #f7f8f9;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3A6DB2 !important;
+        }
+        .nav-link {
+            color: #364146 !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #DA434C !important;
+        }
+        .header-social-links a {
+            color: #576971;
+            font-size: 1.2rem;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+        .header-social-links a:hover {
+            color: #3F3F9A;
+        }
+        .section-title {
+            text-align: center;
+            padding-bottom: 30px;
+        }
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            position: relative;
+            color: #3A6DB2;
+        }
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #3F3F9A;
+            bottom: 0;
+            left: calc(50% - 40px);
+        }
+        .market-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .market-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .market-card .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .market-card .card-title {
+            color: #3F3F9A;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .market-card .card-text {
+            color: #576971;
+            flex-grow: 1;
+        }
+        .market-card .icon {
+            font-size: 3rem;
+            color: #3A6DB2;
+            margin-bottom: 1rem;
+        }
+
+                /* image */
+
+                .product-lines-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.paint-icon {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 10px; /* Adjust spacing */
+}
+
+.product-lines-header h2 {
+    font-size: 32px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: #3A6DB2; /* Dark blue */
+}
+
+.product-lines-header h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #3F3F9A; /* Purple */
+    bottom: 0;
+    left: calc(50% - 40px);
+}
+    </style>
+</head>
+<body>
+    <header id="header" class="fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">WINTECH PAINTS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " href="index.html">About us</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="index.html#about">About Us</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="markets.html">Markets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div class="header-social-links d-none d-lg-flex align-items-center">
+                        <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+                
+    <div class="container py-5" style="margin-top: 70px;">
+        <div class="section-title">
+            <img src="assets/img/spash2.png" alt="Paint" class="paint-icon">
+            <h2>Winlac Markets</h2>
+            <p>Explore our diverse range of solutions for various industries</p>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-industry icon"></i>
+                        <h5 class="card-title">Industrial</h5>
+                        <p class="card-text">Our industrial coatings provide superior protection for a wide range of manufacturing and processing facilities.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-oil-well icon"></i>
+                        <h5 class="card-title">Oil & Gas</h5>
+                        <p class="card-text">We offer reliable solutions developed through years of experience in the complex oil and gas industry.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-bridge icon"></i>
+                        <h5 class="card-title">Infrastructure</h5>
+                        <p class="card-text">Our coatings protect bridges, highways, and other critical infrastructure from corrosion and weathering.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-ship icon"></i>
+                        <h5 class="card-title">Marine</h5>
+                        <p class="card-text">Winlac's marine coatings offer exceptional protection against the harsh saltwater environment.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-bolt icon"></i>
+                        <h5 class="card-title">Power Generation</h5>
+                        <p class="card-text">We provide specialized coatings for power plants, including high-temperature and chemical-resistant solutions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-building icon"></i>
+                        <h5 class="card-title">Commercial & Architectural</h5>
+                        <p class="card-text">Our architectural coatings offer both protection and aesthetics for commercial and residential buildings.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-train icon"></i>
+                        <h5 class="card-title">Rail & Transportation</h5>
+                        <p class="card-text">Winlac provides durable coatings for rolling stock, railway infrastructure, and other transportation assets.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-water icon"></i>
+                        <h5 class="card-title">Water & Wastewater</h5>
+                        <p class="card-text">Our specialized coatings protect water treatment facilities and infrastructure from corrosion and chemical exposure.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="market-card">
+                    <div class="card-body">
+                        <i class="fas fa-flask icon"></i>
+                        <h5 class="card-title">Chemical Processing</h5>
+                        <p class="card-text">Winlac offers high-performance coatings designed to withstand aggressive chemical environments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Lines</title>
+    
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Internal CSS -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: "Open Sans", sans-serif;
+            color: #364146; /* Dark grey */
+            background-color: #f7f8f9; /* Light grey */
+        }
+
+        .section-title {
+            text-align: center;
+            padding-bottom: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            position: relative;
+            color: #3A6DB2; /* Blue */
+        }
+
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #3F3F9A; /* Dark blue */
+            bottom: 0;
+            left: calc(50% - 40px);
+        }
+
+        /* Product Cards */
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card .card-title {
+            color: #3F3F9A; /* Dark blue */
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-card .list-group-item {
+            border: none;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .product-card .list-group-item:hover {
+            background-color: #f8f9fa; /* Light grey */
+        }
+
+        .product-card .list-group-item i {
+            color: #3F3F9A; /* Dark blue */
+            margin-right: 0.5rem;
+        }
+
+        .product-card .list-group-item a {
+            color: #3A6DB2; /* Blue */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .product-card .list-group-item a:hover {
+            color: #DA434C; /* Red */
+        }
+
+        .show-more {
+            display: none;
+            color: #DA434C; /* Red */
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .show-more:hover {
+            color: #3A6DB2; /* Blue */
+        }
+
+        .show-more i {
+            font-size: 1.2rem;
+        }
+
+        .show-more.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Category Filter */
+        #category-filter {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #3A6DB2; /* Blue */
+            border-radius: 5px;
+            color: #3A6DB2; /* Blue */
+            background-color: #fff;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        #category-filter:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(58, 109, 178, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #category-filter {
+                max-width: 100%;
+            }
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3A6DB2 !important; /* Blue */
+        }
+
+        .nav-link {
+            color: #364146 !important; /* Dark grey */
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #DA434C !important; /* Red */
+        }
+
+        /* Additional Styles */
+        .container {
+            padding-top: 80px; /* Adjusted for navbar height */
+            padding-bottom: 50px;
+        }
+
+        .card-body {
+            position: relative;
+            padding: 1.5rem;
+        }
+
+        .card-body::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline-custom {
+            color: #3A6DB2;
+            border-color: #3A6DB2;
+        }
+
+        .btn-outline-custom:hover {
+            background-color: #3A6DB2;
+            color: #fff;
+        }
+
+        .btn-outline-danger-custom {
+            color: #DA434C;
+            border-color: #DA434C;
+        }
+
+        .btn-outline-danger-custom:hover {
+            background-color: #DA434C;
+            color: #fff;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-sm i {
+            margin-right: 0.5rem;
+        }
+
+        .filter-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .filter-container .form-select {
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .product-card .list-group-item {
+            padding: 0.5rem 1rem;
+            border-radius: 0;
+        }
+
+        .product-card .list-group-item i {
+            margin-right: 10px;
+        }
+
+        .product-card .list-group-item:hover {
+            background-color: rgba(58, 109, 178, 0.1);
+        }
+
+        .show-more {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .show-more i {
+            transition: transform 0.3s ease;
+        }
+
+        .show-more.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #3A6DB2;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 0;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #DA434C;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header" class="fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">WINTECH PAINTS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">About us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="products.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="markets.html">Markets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="filter-container">
+                    <select id="category-filter" class="form-select">
+                        <option value="all">All Categories</option>
+                        <option value="paints">Paints</option>
+                        <option value="coatings">Coatings</option>
+                        <option value="sealants">Sealants</option>
+                        <option value="adhesives">Adhesives</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="product-container">
+            <div class="col" data-category="primers">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Primers</h5>
+                        <ul class="list-group list-group-flush" id="primers-list">
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">REDOXIDE METAL PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">ZINC CHROMATE REDOXIDE METAL PRIMER AS PER IS : 2074 (504)</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">ZINC CHROMATE YELLOW PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">ZINC PHOSPHATE GREY PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">EPOXY ZINC CHROMATE PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">EPOXY ZINC CHROMATE YELLOW PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">EPOXY ZINC RICH PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">POLYURETHANE PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-tint"></i><a href="#">ETCH PRIMER</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('primers-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="enamels">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Enamels and Finishes</h5>
+                        <ul class="list-group list-group-flush" id="enamels-list">
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="#">SYNTHETIC ENAMEL</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="#">HIGH SPEED ENAMEL</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="#">SYNTHETIC STOVING ENAMELS</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="#">CHEMICAL RESISTANT EPOXY FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="#">PHENOLIC - EPOXY FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="#">UNICOT EPOXY FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-paint-roller"></i><a href="#">POLYURETHANE FINISH</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('enamels-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="specialty">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Specialty Paints</h5>
+                        <ul class="list-group list-group-flush" id="specialty-list">
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="#">FLUORESCENT PAINT</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="#">ALUMINIUM PAINT</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="#">HEAT & OIL RESISTANT FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="#">A.C.BLACK</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="#">CHLORUB PRIMER</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="#">CHLORUB FINISH</a></li>
+                            <li class="list-group-item"><i class="fas fa-star"></i><a href="#">ACRYLIC Road marking paint</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('specialty-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="epoxy">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Epoxy Coatings</h5>
+                        <ul class="list-group list-group-flush" id="epoxy-list">
+                            <li class="list-group-item"><i class="fas fa-layer-group"></i><a href="#">EPOXY COAL TAR</a></li>
+                            <li class="list-group-item"><i class="fas fa-layer-group"></i><a href="#">EPOXY HIGH BUILD MIO</a></li>
+                            <li class="list-group-item"><i class="fas fa-layer-group"></i><a href="#">EPOXY MASTIC</a></li>
+                            <li class="list-group-item"><i class="fas fa-layer-group"></i><a href="#">SOLVENTLESS EPOXY COATING</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('epoxy-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="hightemp">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">High Temperature Paints</h5>
+                        <ul class="list-group list-group-flush" id="hightemp-list">
+                            <li class="list-group-item"><i class="fas fa-thermometer-full"></i><a href="#">SPECIFICATION FOR H.R.ALUMINIUM</a></li>
+                            <li class="list-group-item"><i class="fas fa-thermometer-full"></i><a href="#">SPECIFICATION FOR H.R.ALUMINIUM 600°C</a></li>
+                            <li class="list-group-item"><i class="fas fa-thermometer-full"></i><a href="#">SPECIFICATION FOR H.R.BLACK</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('hightemp-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-category="special">
+                <div class="product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special Coatings</h5>
+                        <ul class="list-group list-group-flush" id="special-list">
+                            <li class="list-group-item"><i class="fas fa-flask"></i><a href="#">INORGANIC ETHYL ZINC SILICATE</a></li>
+                        </ul>
+                        <div class="show-more" onclick="toggleList('special-list')">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>&copy; 2024 Wintech Paints. All rights reserved. | Designed by <a href="https://example.com" target="_blank">Your Company</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Internal JavaScript -->
+    <script>
+        // Sample data for products
+        const products = [
+            { id: 1, category: 'paints', name: 'Acrylic Paint', description: 'Premium quality acrylic paint.', price: 19.99, image: 'img/paint.jpg' },
+            { id: 2, category: 'coatings', name: 'Wood Coating', description: 'Durable wood coating for outdoor use.', price: 29.99, image: 'img/coating.jpg' },
+            { id: 3, category: 'sealants', name: 'Silicone Sealant', description: 'Flexible silicone sealant for various applications.', price: 9.99, image: 'img/sealant.jpg' },
+            { id: 4, category: 'adhesives', name: 'Super Glue', description: 'Fast-acting super glue for bonding various materials.', price: 4.99, image: 'img/adhesive.jpg' },
+            { id: 5, category: 'paints', name: 'Oil Paint', description: 'Classic oil paint for artists.', price: 24.99, image: 'img/oil-paint.jpg' },
+            { id: 6, category: 'coatings', name: 'Metal Coating', description: 'Protective coating for metal surfaces.', price: 39.99, image: 'img/metal-coating.jpg' },
+            { id: 7, category: 'sealants', name: 'Polyurethane Sealant', description: 'Waterproof polyurethane sealant.', price: 14.99, image: 'img/polyurethane-sealant.jpg' },
+            { id: 8, category: 'adhesives', name: 'Epoxy Adhesive', description: 'Strong epoxy adhesive for structural bonding.', price: 12.99, image: 'img/epoxy-adhesive.jpg' },
+        ];
+
+        // Function to generate product cards
+        function generateProductCards(products) {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '';
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.classList.add('col');
+                card.innerHTML = `
+                    <div class="card product-card">
+                        <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">${product.description}</p>
+                            <ul class="list-group">
+                                <li class="list-group-item"><i class="fas fa-tag"></i> ${product.category}</li>
+                                <li class="list-group-item"><i class="fas fa-dollar-sign"></i> ${product.price.toFixed(2)}</li>
+                                <li class="list-group-item"><a href="#" class="btn btn-outline-custom btn-sm"><i class="fas fa-info-circle"></i> Details</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                productList.appendChild(card);
+            });
+        }
+
+        // Function to filter products by category
+        function filterProducts(category) {
+            const filteredProducts = category === 'all' ? products : products.filter(product => product.category === category);
+            generateProductCards(filteredProducts);
+        }
+
+        // Event listener for category filter
+        document.getElementById('category-filter').addEventListener('change', function () {
+            const category = this.value;
+            filterProducts(category);
+        });
+
+        // Initial page load
+        document.addEventListener('DOMContentLoaded', function () {
+            filterProducts('all');
+        });
+    </script>
+</body>
+</html>
