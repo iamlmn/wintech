@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Lines</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            overflow: auto;
+            font-family: "Open Sans", sans-serif;
+            color: #364146;
+            background-color: #f7f8f9;
+        }
+        .section-title {
+            text-align: center;
+            padding-bottom: 30px;
+        }
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            position: relative;
+            color: #3A6DB2;
+        }
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #3F3F9A;
+            bottom: 0;
+            left: calc(50% - 40px);
+        }
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .product-card .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card .card-title {
+            color: #3F3F9A;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .product-card .list-group {
+            flex-grow: 1;
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+        }
+        .product-card .list-group-item {
+            border: none;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        .product-card .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+        .product-card .list-group-item i {
+            color: #3F3F9A;
+            margin-right: 0.5rem;
+        }
+        .product-card .list-group-item a {
+            color: #3A6DB2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .product-card .list-group-item a:hover {
+            color: #DA434C;
+        }
+        .show-more {
+            color: #DA434C;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        .show-more.active {
+            display: block;
+        }
+        .show-more i {
+            font-size: 1.2rem;
+        }
+        .show-more.active i {
+            transform: rotate(180deg);
+        }
+        .list-group.collapsed {
+            max-height: 150px;
+            overflow: hidden;
+        }
+        #category-filter {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #3A6DB2;
+            border-radius: 5px;
+            color: #3A6DB2;
+            background-color: #fff;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        #category-filter:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(58, 109, 178, 0.2);
+        }
+        @media (max-width: 768px) {
+            #category-filter {
+                max-width: 100%;
+            }
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3A6DB2 !important;
+        }
+        .nav-link {
+            color: #364146 !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #DA434C !important;
+        }
+        .nav-link.active {
+            color: #3F3F9A !important;
+            font-weight: bold;
+        }
+        .product-lines-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .paint-icon {
+            width: 150px; /* Adjust size as needed */
+            height: auto;
+            margin-right: 10px; /* Adjust spacing */
+        }
+        .product-lines-header h2 {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            position: relative;
+            color: #3A6DB2; /* Dark blue */
+        }
+        .product-lines-header h2::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #3F3F9A; /* Purple */
+            bottom: 0;
+            left: calc(50% - 40px);
+        }
+    </style>
+</head>
+<body>
+    <header id="header" class="fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">WINTECH PAINTS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " href="index.html">About us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="products.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="markets.html">Markets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div class="header-social-links d-none d-lg-flex align-items-center">
+                        <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container py-5">
+        <div class="section-title">
+            <img src="assets/img/spash2.png" alt="Paint" class="paint-icon">
+            <h2>Product Lines</h2>
+            <p>Explore and know our products</p>
+        </div>
+
+        <div class="mb-4 d-flex justify-content-center">
+            <select id="category-filter" class="form-select">
+                <option value="all">All Categories</option>
+                <option value="primers">Primers</option>
+                <option value="enamels">Enamels and Finishes</option>
+                <option value="specialty">Specialty Paints</option>
+                <option value="epoxy">Epoxy Coatings</option>
+                <option value="hightemp">High Temperature Paints</option>
+                <option value="special">Special Coatings</option>
+            </select>
+        </div>
+        
+        <div class="row" id="product-cards">
+            <!-- Product cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const productData = [
+                { category: 'primers', title: 'Red Oxide Primer', items: ['Excellent adhesion', 'Corrosion resistance', 'Quick drying'] },
+                { category: 'primers', title: 'Zinc Chromate Primer', items: ['Superior rust protection', 'High durability', 'Suitable for steel surfaces'] },
+                { category: 'enamels', title: 'Synthetic Enamel', items: ['High gloss finish', 'Durable', 'Weather resistant'] },
+                { category: 'specialty', title: 'Hammer Finish Paint', items: ['Unique texture', 'Good adhesion', 'Corrosion resistant'] },
+                { category: 'epoxy', title: 'Epoxy Floor Coating', items: ['High abrasion resistance', 'Chemical resistant', 'Glossy finish'] },
+                { category: 'hightemp', title: 'Heat Resistant Paint', items: ['Withstands high temperatures', 'Durable', 'Protects against corrosion'] },
+                { category: 'special', title: 'Anti-Graffiti Coating', items: ['Easy to clean', 'Durable', 'Protects surfaces from graffiti'] }
+            ];
+
+            const productCardsContainer = document.getElementById('product-cards');
+            const categoryFilter = document.getElementById('category-filter');
+
+            const renderProductCards = (products) => {
+                productCardsContainer.innerHTML = '';
+                products.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'col-lg-4 col-md-6 mb-4';
+                    card.innerHTML = `
+                        <div class="product-card">
+                            <div class="card-body">
+                                <a href="./products/product.html" class="card-title">${product.title}</a>
+                                <ul class="list-group list-group-flush collapsed">
+                                    ${product.items.map(item => `<li class="list-group-item"><i class="fas fa-check"></i>${item}</li>`).join('')}
+                                </ul>
+                                <div class="show-more"><i class="fas fa-chevron-down"></i> Show More</div>
+                            </div>
+                        </div>
+                    `;
+                    productCardsContainer.appendChild(card);
+                });
+
+                document.querySelectorAll('.show-more').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const listGroup = this.previousElementSibling;
+                        listGroup.classList.toggle('collapsed');
+                        this.classList.toggle('active');
+                        this.innerHTML = listGroup.classList.contains('collapsed')
+                            ? '<i class="fas fa-chevron-down"></i> Show More'
+                            : '<i class="fas fa-chevron-up"></i> Show Less';
+                    });
+                });
+            };
+
+            renderProductCards(productData);
+
+            categoryFilter.addEventListener('change', function() {
+                const selectedCategory = this.value;
+                if (selectedCategory === 'all') {
+                    renderProductCards(productData);
+                } else {
+                    const filteredProducts = productData.filter(product => product.category === selectedCategory);
+                    renderProductCards(filteredProducts);
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
