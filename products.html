@@ -11,7 +11,9 @@
             font-family: "Open Sans", sans-serif;
             color: #364146;
             background-color: #f7f8f9;
-            overflow: auto;
+            /* overflow: auto;
+            overflow-y: scroll;
+            scroll-behavior: smooth; */
         }
         .section-title {
             text-align: center;
@@ -36,6 +38,10 @@
             bottom: 0;
             left: calc(50% - 40px);
         }
+        /* .section-title img {
+            padding-top: 50px;
+        } */
+
         .product-card {
             background-color: #fff;
             border-radius: 8px;
@@ -54,6 +60,11 @@
         .product-card:hover {
             transform: translateY(-5px) scale(1.03);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            /* li:hover { */
+            /* background-color: #ecf0f1; */
+            /* padding-left: 10px; */
+            color: #3A6DB2;
+        /* } */
         }
         .product-card .card-body {
             padding: 1.5rem;
@@ -88,7 +99,12 @@
             transition: color 0.3s ease;
         }
         .product-card .list-group-item a:hover {
-            color: #DA434C;
+            /* color: #DA434C; */
+            transition: all 0.2s ease;
+            background-color: #ecf0f1;
+            font-weight: bold;
+            color: #3A6DB2;
+        
         }
         .show-more {
             display: none;
@@ -223,8 +239,9 @@
                 </div>
             </div>
         </nav>
+    </header>
 
-    <div class="container py-5">
+    <div class="container py-5" style="margin-top: 70px;">
         <div class="section-title">
             <img src="assets/img/spash2.png" alt="Paint" class="paint-icon">
             <h2>Product Lines</h2>
@@ -401,5 +418,11 @@
         document.getElementById('category-filter').addEventListener('change', filterCategories);
     };
 </script>
+
+<footer class="bg-dark text-light py-4 mt-5">
+    <div class="container text-center">
+        <p>&copy; 2023 Wintech Paints and Chemicals. All rights reserved.</p>
+    </div>
+</footer>
 </body>
 </html>

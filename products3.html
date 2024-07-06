@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Lines</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #3A6DB2;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #3F3F9A;
+            border-bottom: 2px solid #3F3F9A;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .category {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+            transition: all 0.2s ease;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        li:hover {
+            background-color: #ecf0f1;
+            padding-left: 10px;
+            color: #3A6DB2;
+        }
+        .all-categories {
+            background-color: #3A6DB2;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .all-categories:hover {
+            background-color: #3F3F9A;
+            transform: scale(1.05);
+        }
+        .show-more {
+            color: #DA434C;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .show-more:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3A6DB2 !important;
+        }
+        .nav-link {
+            color: #364146 !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #DA434C !important;
+        }
+
+        .nav-link.active {
+            color: #3F3F9A !important;
+            font-weight: bold;
+        }
+        .hero-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filter-buttons button {
+            background-color: #3A6DB2;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-buttons button:hover {
+            background-color: #3F3F9A;
+        }
+        .filter-buttons .active {
+            background-color: #DA434C;
+        }
+    </style>
+</head>
+<body>
+    <header id="header" class="fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">WINTECH PAINTS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " href="index.html">About us</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="index.html#about">About Us</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="products.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="markets.html">Markets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div class="header-social-links d-none d-lg-flex align-items-center">
+                        <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="section-title">
+        <img src="assets/img/spash2.png" alt="Paint" class="paint-icon">
+        <h2>Product Lines</h2>
+        <p>Explore and know our products</p>
+    </div>
+
+    <h1>Product Lines</h1>
+    <p style="text-align: center;">Explore and know our products</p>
+
+    <div class="filter-buttons" id="myBtnContainer">
+        <button class="btn active" onclick="filterSelection('all')">All Categories</button>
+        <button class="btn" onclick="filterSelection('primers')">Primers</button>
+        <button class="btn" onclick="filterSelection('enamels')">Enamels and Finishes</button>
+        <button class="btn" onclick="filterSelection('specialty')">Specialty Paints</button>
+        <button class="btn" onclick="filterSelection('epoxy')">Epoxy Coatings</button>
+        <button class="btn" onclick="filterSelection('temperature')">High Temperature Paints</button>
+        <button class="btn" onclick="filterSelection('coatings')">Special Coatings</button>
+    </div>
+
+    <div class="category filterDiv primers">
+        <h2>Primers</h2>
+        <ul>
+            <li>REDOXIDE METAL PRIMER</li>
+            <li>ZINC CHROMATE REDOXIDE METAL PRIMER AS PER IS : 2074 (504)</li>
+            <li>ZINC CHROMATE YELLOW PRIMER</li>
+            <li class="hidden">ZINC PHOSPHATE GREY PRIMER</li>
+            <li class="hidden">EPOXY ZINC CHROMATE PRIMER</li>
+            <li class="hidden">EPOXY ZINC CHROMATE YELLOW PRIMER</li>
+            <li class="hidden">EPOXY ZINC RICH PRIMER</li>
+            <li class="hidden">POLYURETHANE PRIMER</li>
+            <li class="hidden">ETCH PRIMER</li>
+        </ul>
+        <div class="show-more">Show More</div>
+    </div>
+
+    <div class="category filterDiv enamels">
+        <h2>Enamels and Finishes</h2>
+        <ul>
+            <li>SYNTHETIC ENAMEL</li>
+            <li>HIGH SPEED ENAMEL</li>
+            <li>SYNTHETIC STOVING ENAMELS</li>
+            <li class="hidden">CHEMICAL RESISTANT EPOXY FINISH</li>
+            <li class="hidden">PHENOLIC - EPOXY FINISH</li>
+            <li class="hidden">UNICOT EPOXY FINISH</li>
+            <li class="hidden">POLYURETHANE FINISH</li>
+        </ul>
+        <div class="show-more">Show More</div>
+    </div>
+
+    <div class="category filterDiv specialty">
+        <h2>Specialty Paints</h2>
+        <ul>
+            <li>FLUORESCENT PAINT</li>
+            <li>ALUMINIUM PAINT</li>
+            <li>HEAT & OIL RESISTANT FINISH</li>
+            <li class="hidden">A.C.BLACK</li>
+            <li class="hidden">CHLORUB PRIMER</li>
+            <li class="hidden">CHLORUB FINISH</li>
+            <li class="hidden">ACRYLIC Road marking paint</li>
+        </ul>
+        <div class="show-more">Show More</div>
+    </div>
+
+    <div class="category filterDiv epoxy">
+        <h2>Epoxy Coatings</h2>
+        <ul>
+            <li>EPOXY COAL TAR</li>
+            <li>EPOXY HIGH BUILD MIO</li>
+            <li>EPOXY MASTIC</li>
+            <li class="hidden">SOLVENTLESS EPOXY COATING</li>
+        </ul>
+        <div class="show-more">Show More</div>
+    </div>
+
+    <div class="category filterDiv temperature">
+        <h2>High Temperature Paints</h2>
+        <ul>
+            <li>SPECIFICATION FOR H.R.ALUMINIUM</li>
+            <li>SPECIFICATION FOR H.R.ALUMINIUM 600°C</li>
+            <li class="hidden">SPECIFICATION FOR H.R.BLACK</li>
+        </ul>
+        <div class="show-more">Show More</div>
+    </div>
+
+    <div class="category filterDiv coatings">
+        <h2>Special Coatings</h2>
+        <ul>
+            <li>INORGANIC ETHYL ZINC SILICATE</li>
+        </ul>
+    </div>
+
+    <script>
+        function filterSelection(category) {
+            var elements = document.getElementsByClassName("filterDiv");
+            if (category === "all") category = "";
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].style.display = elements[i].className.indexOf(category) > -1 ? "block" : "none";
+            }
+            var buttons = document.getElementsByClassName("btn");
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].className = buttons[i].className.replace(" active", "");
+            }
+            event.currentTarget.className += " active";
+        }
+
+        document.querySelectorAll('.show-more').forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.closest('.category');
+                const hiddenItems = category.querySelectorAll('.hidden');
+                hiddenItems.forEach(item => item.classList.toggle('hidden'));
+                button.textContent = button.textContent === 'Show More' ? 'Show Less' : 'Show More';
+            });
+        });
+
+        // Default filter to show all categories
+        filterSelection('all');
+    </script>
+</body>
+</html>
